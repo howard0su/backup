@@ -36,7 +36,7 @@ Backup Destination
 The ``[destination]`` section specifies where to store backup copies.
 
 ``backup_destination`` can be either ``ssh`` (if you want to store backups on a remote SSH server),
-or ``s3`` (if you want to store backups in Amazon S3), or ``gsc`` (if the backup should be stored in Google Cloud).
+or ``s3`` (if you want to store backups in Amazon S3), or ``gcs`` (if the backup should be stored in Google Cloud), or ``azure`` (if you want to store backups in Azure Storage).
 
 In the optional ``keep_local_path`` you can specify a local path where the tool will store a local copy of the backup.
 It's useful if you want to stream a MySQL backup to S3 and would like to keep a local copy as well.

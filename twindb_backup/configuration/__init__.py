@@ -7,6 +7,7 @@ from ConfigParser import ConfigParser, NoOptionError, NoSectionError
 from shlex import split
 
 from twindb_backup import LOG, INTERVALS
+from twindb_backup.configuration.destinations.azure import AzureConfig
 from twindb_backup.configuration.destinations.s3 import S3Config
 from twindb_backup.configuration.destinations.gcs import GCSConfig
 from twindb_backup.configuration.destinations.ssh import SSHConfig
@@ -114,6 +115,15 @@ class TwinDBBackupConfig(object):
         """Google Cloud Storage configuration"""
         try:
             return GCSConfig(**self.__read_options_from_section('gcs'))
+
+        except NoSectionError:
+            return None
+
+    @property
+    def azure(self):  # pylint: disable=invalid-name
+        """Azure Storage configuration"""
+        try:
+            return AzureConfig(**self.__read_options_from_section('azure'))
 
         except NoSectionError:
             return None
@@ -237,7 +247,13 @@ class TwinDBBackupConfig(object):
                     gc_encryption_key=self.gcs.gc_encryption_key,
                     hostname=backup_source
                 )
-
+            elif backup_destination == 'azure':
+                return Azure(
+                    bucket=self.azure.bucket,
+                    azure_access_key=self.azure.azure_access_key,
+                    azure_account=self.azure.azure_account,
+                    endpoint=self.azure.endpoint
+                )
             else:
                 raise ConfigurationError(
                     'Unsupported destination \'%s\''

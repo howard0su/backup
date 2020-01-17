@@ -18,6 +18,12 @@ backup_mysql=yes
 backup_destination={destination}
 keep_local_path=/var/backup/local
 
+[azure]
+AZURE_ACCESS_KEY=XXXXX
+AZURE_ACCOUNT=YYYYY
+BUCKET=twindb-backups
+ENDPOINT=core.windows.net
+
 [s3]
 AWS_ACCESS_KEY_ID="XXXXX"
 AWS_SECRET_ACCESS_KEY="YYYYY"

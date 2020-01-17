@@ -14,6 +14,9 @@ class FileNotFound(DestinationError):
     """File doesn't exist on destination"""
     pass
 
+class AzureDestinationError(DestinationError):
+    """Azure destination errors"""
+    pass
 
 class S3DestinationError(DestinationError):
     """S3 destination errors"""
